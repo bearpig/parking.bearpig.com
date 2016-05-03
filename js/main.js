@@ -97,11 +97,5 @@ function RenderCarpark(data){
 
 function RenderTimestamp(data)
 {
-  var now = new Date();
-  var h = ('0' + now.getHours()).slice(-2);
-  var m = ('0' + now.getMinutes()).slice(-2);
-  var s = ('0' + now.getSeconds()).slice(-2);
-
-  var localstamp = 'Page last updated at ' + h + ':' + m + ':' + s + '.';
-  $('#timestamp').html(data.carparkData.Timestamp + '. ' + localstamp);
+   $('#timestamp').html(data.carparkData.Timestamp);
 }
