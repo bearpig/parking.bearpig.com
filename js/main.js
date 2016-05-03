@@ -1,101 +1,101 @@
+// this is our (currently) static data on max spaces
+var carParks = new Object();
+carParks['Green Street'] = 608;
+carParks['Minden Place'] = 251;
+carParks['Sand Street'] = 545;
+carParks['Patriotic Street'] = 622;
+carParks['Pier Road'] = 739;
+
 // A $( document ).ready() block.
-$( document ).ready(function() {
-    console.log( "ready!" );
-    RenderParkingData();
+$(document).ready(function() 
+{
+    UpdateParkingData();
 
     setInterval(function() 
     {
-      RenderParkingData();
+      UpdateParkingData();
     }, 30000);
 });
 
 var carParkData =[];
 
-function GetCarparkData(){
-    var url='https://parking.openrock.xyz/';
-        $.ajax({
-        url: url,
-        success: function(data) {
-        // console.log(data);
-         carParkData = data;
-         RenderTimestamp(data);
-        },
-        async:false
-      });
-     return carParkData.carparkData.Jersey.carpark;
-}
-
-function RenderParkingData(){
+function UpdateParkingData()
+{
     $('#timestamp').html('Updating, please wait...');
 
-    var data = data=GetCarparkData();
-     //console.log(data);
+    var url = 'https://parking.openrock.xyz/';
+
+    $.ajax(
+    {
+        url: url,
+        success: function(data) 
+        {
+           RenderTimestamp(data);
+
+           RenderParkingData(data.carparkData.Jersey.carpark);
+        }
+    });
+}
+
+function RenderParkingData(data)
+{
      $('#poster').html('');
-     $.each(data, function( index, value ) {
-            RenderCarpark(value);
+
+     $.each(data, function(index, value) 
+     {
+        RenderCarpark(value);
      });
 }
 
-function RenderCarpark(data){
-// data.spaces = 300 * Math.random();
+function RenderCarpark(data)
+{
+    var numbspaces = parseInt(data.spaces);
+    var status = parseInt(data.status);
 
-    var numbspaces=parseInt(data.spaces);
-    var status=parseInt(data.status);
+    //set max spaces per carpark
+    totalspaces = carParks[data.name];
 
-//set max spaces per carpark
-
-    if (data.name == 'Green Street') {
-      totalspaces = 608;
-    }
-
-    if (data.name == 'Minden Place') {
-      totalspaces = 251;
-    }
-
-    if (data.name == 'Sand Street') {
-      totalspaces = 545;
-    }
-
-    if (data.name == 'Patriotic Street') {
-      totalspaces = 622;
-    }
-
-    if (data.name == 'Pier Road') {
-      totalspaces = 739;
-    }
-
-// calculate percentages
+    // calculate percentages
     var percentage = (numbspaces / totalspaces) * 100;
 
-    if(percentage > 74){
-        status='empty';
+    // work out the status
+    status = 'empty';
+    
+    if(percentage < 75)
+    {
+        status = 'almost-empty';
     }
-    if(percentage < 75){
-        status='almost-empty';
+    
+    if(percentage < 45)
+    {
+        status = 'half-full';
     }
-    if(percentage < 45){
-        status='half-full';
+    
+    if(percentage < 15)
+    {
+        status = 'almost-full';
     }
-    if(percentage < 15){
-        status='almost-full';
-    }
-    if(percentage == 0){
-        status='full';
+    
+    if(percentage == 0)
+    {
+        status = 'full';
     }
 
-//    roundedpercentage = percentage.toPrecision(2);
-
-// Make HTML
-    var target=$("#poster");
-    var html="";
-    html=html + '<div class="carpark ' + status + '">';
+    // Make HTML
+    var html =  '<div class="carpark ' + status + '">';
     html=html + '<div class="carpark_name">' + data.name + '</div>';
     html=html + '<div class="carpark_spaces">' + numbspaces + '<span> spaces</span></div>';
     html=html + '</div>';
-    target.append(html);
+
+    $('#poster').append(html);
 }
 
 function RenderTimestamp(data)
 {
+<<<<<<< HEAD
    $('#timestamp').html(data.carparkData.Timestamp);
 }
+=======
+  $('#timestamp').html(data.carparkData.Timestamp);
+}
+>>>>>>> 4e844f8b836c5b8bc4b6693a14513d7213936f0e
