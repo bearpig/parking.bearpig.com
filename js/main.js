@@ -38,23 +38,23 @@ function RenderCarpark(data){
 //set max spaces per carpark
 
     if (data.name == 'Green Street') {
-      totalspaces = '608';
+      totalspaces = 608;
     }
 
     if (data.name == 'Minden Place') {
-      totalspaces = '251';
+      totalspaces = 251;
     }
 
     if (data.name == 'Sand Street') {
-      totalspaces = '545';
+      totalspaces = 545;
     }
 
     if (data.name == 'Patriotic Street') {
-      totalspaces = '622';
+      totalspaces = 622;
     }
 
     if (data.name == 'Pier Road') {
-      totalspaces = '739';
+      totalspaces = 739;
     }
 
 // calculate percentages
@@ -76,7 +76,7 @@ function RenderCarpark(data){
         status='full';
     }
 
-    roundedpercentage = percentage.toPrecision(2);
+//    roundedpercentage = percentage.toPrecision(2);
 
 // Make HTML
     var target=$("#poster");
