@@ -2,6 +2,11 @@
 $( document ).ready(function() {
     console.log( "ready!" );
     RenderParkingData();
+
+    setInterval(function() 
+    {
+      RenderParkingData();
+    }, 30000);
 });
 
 var carParkData =[];
@@ -21,6 +26,8 @@ function GetCarparkData(){
 }
 
 function RenderParkingData(){
+    $('#timestamp').html('Updating, please wait...');
+
     var data = data=GetCarparkData();
      //console.log(data);
      $('#poster').html('');
@@ -90,5 +97,11 @@ function RenderCarpark(data){
 
 function RenderTimestamp(data)
 {
-  $('#timestamp').html(data.carparkData.Timestamp);
+  var now = new Date();
+  var h = ('0' + now.getHours()).slice(-2);
+  var m = ('0' + now.getMinutes()).slice(-2);
+  var s = ('0' + now.getSeconds()).slice(-2);
+
+  var localstamp = 'Page last updated at ' + h + ':' + m + ':' + s + '.';
+  $('#timestamp').html(data.carparkData.Timestamp + '. ' + localstamp);
 }
