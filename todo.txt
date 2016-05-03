@@ -5,7 +5,7 @@ Tackle these first
 - split into short stay/long stay carparks
 - auto refresh (or refresh button)
 - auto sort by the most amount of spaces available
-- create thresholds for each car park so the thresholds are percentage based not strict values
+- create thresholds for each car park so the thresholds are percentage based not strict values (this is now done - will test)
 - create a check for 'status = good' as this is the status of the sensor, not the status of how full the carpark is
 
 Nice to haves

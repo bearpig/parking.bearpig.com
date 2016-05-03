@@ -30,30 +30,60 @@ function RenderParkingData(){
 }
 
 function RenderCarpark(data){
-// data.spaces = 10 * Math.random();
+// data.spaces = 300 * Math.random();
 
     var numbspaces=parseInt(data.spaces);
-    var status=parseInt(data.status)
-    if(numbspaces > 224){
+    var status=parseInt(data.status);
+
+//set max spaces per carpark
+
+    if (data.name == 'Green Street') {
+      totalspaces = '608';
+    }
+
+    if (data.name == 'Minden Place') {
+      totalspaces = '251';
+    }
+
+    if (data.name == 'Sand Street') {
+      totalspaces = '545';
+    }
+
+    if (data.name == 'Patriotic Street') {
+      totalspaces = '622';
+    }
+
+    if (data.name == 'Pier Road') {
+      totalspaces = '739';
+    }
+
+// calculate percentages
+    var percentage = (numbspaces / totalspaces) * 100;
+
+    if(percentage > 74){
         status='empty';
     }
-    if(numbspaces < 225){
+    if(percentage < 75){
         status='almost-empty';
     }
-    if(numbspaces < 150){
+    if(percentage < 45){
         status='half-full';
     }
-    if(numbspaces < 70){
+    if(percentage < 15){
         status='almost-full';
     }
-    if(numbspaces == 0){
+    if(percentage == 0){
         status='full';
     }
+
+    roundedpercentage = percentage.toPrecision(2);
+
+// Make HTML
     var target=$("#poster");
     var html="";
     html=html + '<div class="carpark ' + status + '">';
     html=html + '<div class="carpark_name">' + data.name + '</div>';
-    html=html + '<div class="carpark_spaces">' + data.spaces + '<span> spaces</span></div>';
+    html=html + '<div class="carpark_spaces">' + numbspaces + '<span> spaces</span></div>';
     html=html + '</div>';
     target.append(html);
 }
